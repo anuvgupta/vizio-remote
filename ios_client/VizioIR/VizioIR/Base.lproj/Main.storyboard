@@ -58,11 +58,11 @@
                                         <inset key="imageEdgeInsets" minX="17" minY="17" maxX="17" maxY="17"/>
                                         <state key="normal" image="power_r"/>
                                         <connections>
-                                            <action selector="powerClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="Drs-dd-qTV"/>
+                                            <action selector="powerClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="AmO-lC-nRd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kd1-Hp-neS">
-                                        <rect key="frame" x="274" y="5" width="100" height="55"/>
+                                        <rect key="frame" x="176" y="5" width="198" height="55"/>
                                         <color key="backgroundColor" red="0.10748948730000001" green="0.1140975048" blue="0.1240283947" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="R5p-Pi-wfB"/>
@@ -73,14 +73,14 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="inputClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="Kwl-Ws-JYg"/>
+                                            <action selector="inputClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="OP6-Fp-Pey"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHC-9q-Zdh" userLabel="Vizio Logo">
-                                        <rect key="frame" x="100" y="5" width="174" height="55"/>
+                                        <rect key="frame" x="100" y="5" width="76" height="55"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vizio_title" translatesAutoresizingMaskIntoConstraints="NO" id="oUa-UK-oDY">
-                                                <rect key="frame" x="30" y="-70.5" width="114" height="196.00000000000006"/>
+                                                <rect key="frame" x="30" y="0.0" width="16" height="55"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -88,6 +88,8 @@
                                             <constraint firstAttribute="trailing" secondItem="oUa-UK-oDY" secondAttribute="trailing" constant="30" id="CKp-np-ltc"/>
                                             <constraint firstItem="oUa-UK-oDY" firstAttribute="leading" secondItem="mHC-9q-Zdh" secondAttribute="leading" constant="30" id="J9f-IE-Uqo"/>
                                             <constraint firstItem="oUa-UK-oDY" firstAttribute="centerY" secondItem="mHC-9q-Zdh" secondAttribute="centerY" id="Jvf-0V-fIt"/>
+                                            <constraint firstAttribute="bottom" secondItem="oUa-UK-oDY" secondAttribute="bottom" id="NRZ-IO-5ol"/>
+                                            <constraint firstItem="oUa-UK-oDY" firstAttribute="top" secondItem="mHC-9q-Zdh" secondAttribute="top" id="Q2p-D7-2FY"/>
                                             <constraint firstAttribute="height" constant="55" id="uC4-ya-co7"/>
                                         </constraints>
                                     </view>
@@ -100,7 +102,7 @@
                                         <inset key="imageEdgeInsets" minX="11" minY="11" maxX="11" maxY="11"/>
                                         <state key="normal" image="rewind_w"/>
                                         <connections>
-                                            <action selector="rewindClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="0kw-QP-wgQ"/>
+                                            <action selector="rewindClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="SgZ-SZ-cCK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jO-nT-3Qa">
@@ -112,7 +114,7 @@
                                         <inset key="imageEdgeInsets" minX="11" minY="11" maxX="11" maxY="11"/>
                                         <state key="normal" image="pause_w"/>
                                         <connections>
-                                            <action selector="pauseClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="ZTU-3G-u8b"/>
+                                            <action selector="pauseClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="69L-Qf-CfZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOE-a7-MsD">
@@ -124,7 +126,7 @@
                                         <inset key="imageEdgeInsets" minX="11" minY="11" maxX="11" maxY="11"/>
                                         <state key="normal" image="play_w"/>
                                         <connections>
-                                            <action selector="playClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="czN-bf-d1l"/>
+                                            <action selector="playClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="rTv-gU-VRY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRI-x9-ZVH">
@@ -136,7 +138,7 @@
                                         <inset key="imageEdgeInsets" minX="11" minY="11" maxX="11" maxY="11"/>
                                         <state key="normal" image="forward_w"/>
                                         <connections>
-                                            <action selector="forwardClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="MRr-af-lRS"/>
+                                            <action selector="forwardClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="vgZ-Ba-oKE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lTY-mg-FCp">
@@ -148,7 +150,7 @@
                                         <inset key="imageEdgeInsets" minX="14" minY="14" maxX="14" maxY="14"/>
                                         <state key="normal" image="cc_w"/>
                                         <connections>
-                                            <action selector="captionClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="Zuj-R8-PfH"/>
+                                            <action selector="captionClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="8rR-1h-38y"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzh-wH-dHq">
@@ -160,7 +162,7 @@
                                         <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                         <state key="normal" image="record_r"/>
                                         <connections>
-                                            <action selector="recordClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="430-GM-HJ8"/>
+                                            <action selector="recordClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="wTA-AZ-USb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ukn-em-KQz">
@@ -172,7 +174,7 @@
                                         <inset key="imageEdgeInsets" minX="11" minY="11" maxX="11" maxY="11"/>
                                         <state key="normal" image="stop_w"/>
                                         <connections>
-                                            <action selector="stopClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="fce-C4-XAe"/>
+                                            <action selector="stopClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="su4-4q-2TX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXh-zx-Pgj">
@@ -187,7 +189,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="infoClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="mbC-ae-mgF"/>
+                                            <action selector="infoClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="2g4-B5-Uev"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sA1-O5-5r8">
@@ -203,7 +205,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="exitClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="MHk-s8-KTh"/>
+                                            <action selector="exitClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="R3H-Mn-yK0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yxz-j4-0rd">
@@ -219,7 +221,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="menuClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="F6L-Pq-o1P"/>
+                                            <action selector="menuClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="4Yw-z9-HMo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q19-bZ-oDt">
@@ -232,7 +234,7 @@
                                         <inset key="imageEdgeInsets" minX="14" minY="14" maxX="14" maxY="14"/>
                                         <state key="normal" image="up_w"/>
                                         <connections>
-                                            <action selector="upClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="EH2-fV-bVr"/>
+                                            <action selector="upClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="cqe-r6-mBn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qot-Hu-R02">
@@ -248,7 +250,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="okClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="363-go-Ng0"/>
+                                            <action selector="okClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="gyT-4t-UgL"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aS2-lw-GcC">
@@ -261,7 +263,7 @@
                                         <inset key="imageEdgeInsets" minX="14" minY="14" maxX="14" maxY="14"/>
                                         <state key="normal" image="left_w"/>
                                         <connections>
-                                            <action selector="leftClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="Zxf-uG-jZG"/>
+                                            <action selector="leftClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="z95-tK-RHs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jay-21-HCf">
@@ -274,7 +276,7 @@
                                         <inset key="imageEdgeInsets" minX="14" minY="14" maxX="14" maxY="14"/>
                                         <state key="normal" image="right_w"/>
                                         <connections>
-                                            <action selector="rightClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="haa-bP-Jfd"/>
+                                            <action selector="rightClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="kN8-sV-oil"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAT-ig-sUc">
@@ -290,7 +292,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="backClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="ars-3m-ErB"/>
+                                            <action selector="backClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="iGD-vS-55r"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-kd-ZcS">
@@ -306,7 +308,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="guideClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="6lj-pN-sVn"/>
+                                            <action selector="guideClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="wQ7-Ee-bJH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FLO-ra-bKi">
@@ -319,7 +321,7 @@
                                         <inset key="imageEdgeInsets" minX="14" minY="14" maxX="14" maxY="14"/>
                                         <state key="normal" image="down_w"/>
                                         <connections>
-                                            <action selector="downClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="6kG-MU-wi0"/>
+                                            <action selector="downClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="eZZ-x8-g99"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pr1-cQ-2Mf">
@@ -332,21 +334,21 @@
                                         <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                         <state key="normal" image="vizio_logo_tr"/>
                                         <connections>
-                                            <action selector="vizioClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="bJZ-w1-34o"/>
+                                            <action selector="vizioClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="s0c-VL-fVr"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUU-Ae-oBg">
-                                        <rect key="frame" x="0.0" y="692" width="374" height="65"/>
+                                        <rect key="frame" x="0.0" y="692" width="374" height="75"/>
                                         <color key="backgroundColor" red="0.10748948730000001" green="0.1140975048" blue="0.1240283947" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="ECU-QE-imT"/>
+                                            <constraint firstAttribute="height" constant="75" id="ECU-QE-imT"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
                                         <state key="normal" image="netflix_title">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="netflixClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="cfD-ek-jrT"/>
+                                            <action selector="netflixClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="R95-X0-CW1"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAu-CP-s68">
@@ -362,7 +364,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="volUpClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="mzK-72-OV1"/>
+                                            <action selector="volUpClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="vy9-Or-yFM"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-Lv-pDt">
@@ -378,7 +380,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="volDownClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="6iF-eb-FOi"/>
+                                            <action selector="volDownClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="blD-Zh-xP9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RsZ-Mp-FvD">
@@ -394,7 +396,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="chUpClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="ZQI-xV-6pM"/>
+                                            <action selector="chUpClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="csc-zV-A0L"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMM-ds-9vd">
@@ -410,7 +412,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="chDownClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="ajD-Rd-Nvd"/>
+                                            <action selector="chDownClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="beQ-xP-Edu"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbD-Vd-ah7">
@@ -422,7 +424,7 @@
                                         <inset key="imageEdgeInsets" minX="17" minY="17" maxX="17" maxY="17"/>
                                         <state key="normal" image="vol_mute_w"/>
                                         <connections>
-                                            <action selector="volMuteClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="2nm-5u-oV7"/>
+                                            <action selector="volMuteClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="ZFh-1H-ahA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="topRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LbH-3C-cQd">
@@ -434,7 +436,7 @@
                                         <inset key="imageEdgeInsets" minX="17" minY="17" maxX="17" maxY="17"/>
                                         <state key="normal" image="return_w"/>
                                         <connections>
-                                            <action selector="returnClicked:" destination="TSI-LJ-RnT" eventType="touchUpInside" id="9Cw-ga-SlL"/>
+                                            <action selector="returnClicked:" destination="TSI-LJ-RnT" eventType="touchDown" id="gJO-pw-jH5"/>
                                         </connections>
                                     </button>
                                 </subviews>

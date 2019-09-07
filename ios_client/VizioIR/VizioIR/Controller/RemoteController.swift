@@ -107,105 +107,131 @@ class RemoteController: UIViewController {
     
     @IBAction func inputClicked(_ sender: UIButton) {
         print("input")
+        ws.sendButton("input")
     }
     
     @IBAction func netflixClicked(_ sender: UIButton) {
         print("netflix")
+        ws.sendButton("netflix")
     }
     
     @IBAction func rewindClicked(_ sender: UIButton) {
         print("rewind")
+        ws.sendButton("rewind")
     }
     
     @IBAction func pauseClicked(_ sender: UIButton) {
         print("pause")
+        ws.sendButton("pause")
     }
     
     @IBAction func playClicked(_ sender: UIButton) {
         print("play")
+        ws.sendButton("play")
     }
     
     @IBAction func forwardClicked(_ sender: UIButton) {
         print("forward")
+        ws.sendButton("forward")
     }
     
     @IBAction func captionClicked(_ sender: UIButton) {
         print("captions")
+        ws.sendButton("captions")
     }
     
     @IBAction func recordClicked(_ sender: UIButton) {
         print("record")
+        ws.sendButton("record")
     }
     
     @IBAction func stopClicked(_ sender: UIButton) {
         print("stop")
+        ws.sendButton("stop")
     }
     
     @IBAction func infoClicked(_ sender: UIButton) {
         print("info")
+        ws.sendButton("info")
     }
     
     @IBAction func exitClicked(_ sender: UIButton) {
         print("exit")
+        ws.sendButton("exit")
     }
     
     @IBAction func menuClicked(_ sender: UIButton) {
         print("menu")
+        ws.sendButton("menu")
     }
     
     @IBAction func upClicked(_ sender: UIButton) {
         print("up")
+        ws.sendButton("up")
     }
     
     @IBAction func leftClicked(_ sender: UIButton) {
         print("left")
+        ws.sendButton("left")
     }
     
     @IBAction func rightClicked(_ sender: UIButton) {
         print("right")
+        ws.sendButton("right")
     }
     
     @IBAction func downClicked(_ sender: UIButton) {
         print("down")
+        ws.sendButton("down")
     }
     
     @IBAction func okClicked(_ sender: UIButton) {
         print("ok")
+        ws.sendButton("ok")
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
         print("back")
+        ws.sendButton("back")
     }
     
     @IBAction func guideClicked(_ sender: UIButton) {
         print("guide")
+        ws.sendButton("guide")
     }
     
     @IBAction func vizioClicked(_ sender: UIButton) {
         print("vizio")
+        ws.sendButton("vizio")
     }
     
     @IBAction func volUpClicked(_ sender: UIButton) {
         print("vol_up")
+        ws.sendButton("vol_up")
     }
     
     @IBAction func volDownClicked(_ sender: UIButton) {
         print("vol_down")
+        ws.sendButton("vol_down")
     }
     @IBAction func volMuteClicked(_ sender: UIButton) {
-        print("vol_mute")
+        print("mute")
+        ws.sendButton("mute")
     }
     
     @IBAction func chUpClicked(_ sender: UIButton) {
         print("ch_up")
+        ws.sendButton("ch_up")
     }
     
     @IBAction func chDownClicked(_ sender: UIButton) {
         print("ch_down")
+        ws.sendButton("ch_down")
     }
     
     @IBAction func returnClicked(_ sender: UIButton) {
         print("return")
+        ws.sendButton("return")
     }
     
 }
