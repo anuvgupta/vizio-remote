@@ -93,7 +93,7 @@ var wss = {
         try {
             m = JSON.parse(m);
         } catch (e) {
-            console.log("ws", util.ERR, "invalid json msg", e);
+            console.log("[ws]", util.ERR, "invalid json msg", e);
             m = null;
         }
         return m;
