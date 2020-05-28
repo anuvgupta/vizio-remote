@@ -1,2 +1,2 @@
 # vizio-remote
-IoT Vizio TV remote control app with ESP8266 IR blaster
+Vizio TV IoT remote control iOS app using an ESP8266 and IR emitter
