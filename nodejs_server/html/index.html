@@ -49,14 +49,19 @@
         <script>
             // var server = 'ws://anuv:30006';
             var server = 'ws://vizio.anuv.me:3006';
+            server =
+                (location.protocol === 'https:' ? 'wss://' : 'ws://') +
+                document.domain +
+                (location.protocol === 'https:' ? ':443' : ':80') +
+                '/socket';
             var util = {
-                encode_msg: function(e, d) {
+                encode_msg: function (e, d) {
                     return JSON.stringify({
                         event: e,
-                        data: d
+                        data: d,
                     });
                 },
-                decode_msg: function(m) {
+                decode_msg: function (m) {
                     try {
                         m = JSON.parse(m);
                     } catch (e) {
@@ -65,9 +70,9 @@
                     }
                     return m;
                 },
-                cookie: function(id, val, date) {
+                cookie: function (id, val, date) {
                     if (val === undefined || val === null)
-                        document.cookie.split('; ').forEach(function(cookie) {
+                        document.cookie.split('; ').forEach(function (cookie) {
                             if (cookie.substring(0, id.length) == id)
                                 val = cookie.substring(id.length + 1);
                         });
@@ -81,9 +86,9 @@
                                 : '');
                     return val === undefined || val === null ? null : val;
                 },
-                delete_cookie: function(id) {
+                delete_cookie: function (id) {
                     util.cookie(id, '', 'Thu, 01 Jan 1970 00:00:00 GMT');
-                }
+                },
             };
             var last_pass = '';
             var buttons = [
@@ -129,33 +134,31 @@
                 '9',
                 '0',
                 'wide',
-                '—'
+                '—',
             ];
-            $(document).ready(_ => {
+            $(document).ready((_) => {
                 var ws = new WebSocket(server);
                 var ws_online = false;
-                ws.onopen = _ => {
+                ws.onopen = (_) => {
                     console.log('[ws] connected');
                     ws_online = true;
                     last_pass = util.cookie('password');
                     if (last_pass != null && last_pass != '') {
                         ws.send(
                             util.encode_msg('auth', {
-                                password: last_pass
+                                password: last_pass,
                             })
                         );
                     }
                 };
-                ws.onclose = _ => {
+                ws.onclose = (_) => {
                     console.log('[ws] closed');
                     ws_online = false;
-                    $('#login').show();
-                    $('#main').hide();
                 };
-                ws.onerror = e => {
+                ws.onerror = (e) => {
                     console.error('[ws] error', e);
                 };
-                ws.onmessage = e => {
+                ws.onmessage = (e) => {
                     var d = util.decode_msg(e.data);
                     if (d != null) {
                         console.log('[ws] msg', d.event, d.data);
@@ -175,20 +178,18 @@
                         }
                     }
                 };
-                $('#password').on('input', _ => {
-                    var val = $('#password')
-                        .val()
-                        .trim();
+                $('#password').on('input', (_) => {
+                    var val = $('#password').val().trim();
                     if (val != '') {
                         last_pass = val;
                         ws.send(
                             util.encode_msg('auth', {
-                                password: val
+                                password: val,
                             })
                         );
                     }
                 });
-                $('#logout').on('click', _ => {
+                $('#logout').on('click', (_) => {
                     util.delete_cookie('password');
                     location.reload();
                 });
@@ -201,13 +202,13 @@
                         'waves-effect waves-dark btn grey lighten-2';
                     node.addEventListener(
                         'click',
-                        (name => {
-                            return event => {
+                        ((name) => {
+                            return (event) => {
                                 console.log(name);
                                 if (ws_online) {
                                     ws.send(
                                         util.encode_msg('vizio', {
-                                            name: name
+                                            name: name,
                                         })
                                     );
                                 }
@@ -234,7 +235,11 @@
         <div id="main">
             <div id="footer" style="display: table;">
                 <div
-                    style="display: table-cell; vertical-align: middle; margin: 0 auto;"
+                    style="
+                        display: table-cell;
+                        vertical-align: middle;
+                        margin: 0 auto;
+                    "
                 >
                     <button
                         id="logout"
