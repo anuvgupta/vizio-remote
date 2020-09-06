@@ -1,9 +1,7 @@
-# vizio-remote
-Vizio TV IoT remote control iOS app using an NodeMCU/ESP8266 and IR emitter.  
-Built with Arduino, Xcode, and Node.js.  
+# rokutv-remote
 
-
-
+RokuTV IoT remote control web app using an NodeMCU/ESP8266 and IR emitter.  
+Built with Arduino and Node.js.
 
 &nbsp;  
-*2019*
+_2020_

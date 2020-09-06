@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>RokuTV Remote</title>
         <meta charset="UTF-8" />
-        <title>Vizio IR</title>
+        <meta name="author" content="Anuv Gupta" />
+        <meta name="copyright" content="Copyright (c) 2020 Anuv Gupta" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=no"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link
+            rel="apple-touch-icon"
+            sizes="128x128"
+            href="img/app-logo-crop.png"
+        />
+        <link rel="apple-touch-startup-image" href="img/app-logo-crop.png" />
+        <link rel="icon" href="img/app-logo.png" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         />
         <style>
             body {
-                background-color: #222;
+                background-color: #111;
                 text-align: center;
             }
             .btn {
@@ -26,19 +42,6 @@
             #password:focus {
                 border-bottom: 1px solid #fff;
             }
-            #main {
-                display: none;
-            }
-            #main #footer {
-                position: fixed;
-                bottom: 0;
-                height: 100px;
-                width: 100%;
-                left: 0;
-                right: 0;
-                background-color: #2a2a2a;
-                z-index: 10;
-            }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script
@@ -46,208 +49,42 @@
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"
         ></script>
-        <script>
-            // var server = 'ws://anuv:30006';
-            var server = 'ws://vizio.anuv.me:3006';
-            server =
-                (location.protocol === 'https:' ? 'wss://' : 'ws://') +
-                document.domain +
-                (location.protocol === 'https:' ? ':443' : ':80') +
-                '/socket';
-            var util = {
-                encode_msg: function (e, d) {
-                    return JSON.stringify({
-                        event: e,
-                        data: d,
-                    });
-                },
-                decode_msg: function (m) {
-                    try {
-                        m = JSON.parse(m);
-                    } catch (e) {
-                        console.log('[wss] invalid json msg ', e);
-                        m = null;
-                    }
-                    return m;
-                },
-                cookie: function (id, val, date) {
-                    if (val === undefined || val === null)
-                        document.cookie.split('; ').forEach(function (cookie) {
-                            if (cookie.substring(0, id.length) == id)
-                                val = cookie.substring(id.length + 1);
-                        });
-                    else
-                        document.cookie =
-                            id +
-                            '=' +
-                            val +
-                            (date != undefined && date != null
-                                ? '; expires=' + date
-                                : '');
-                    return val === undefined || val === null ? null : val;
-                },
-                delete_cookie: function (id) {
-                    util.cookie(id, '', 'Thu, 01 Jan 1970 00:00:00 GMT');
-                },
-            };
-            var last_pass = '';
-            var buttons = [
-                'power',
-                'netflix',
-                'input',
-                'rewind',
-                'pause',
-                'play',
-                'forward',
-                'captions',
-                'record',
-                'stop',
-                'info',
-                'exit',
-                'menu',
-                'back',
-                'guide',
-                'up',
-                'down',
-                'left',
-                'right',
-                'ok',
-                'yellow',
-                'blue',
-                'red',
-                'green',
-                'vol_up',
-                'vol_down',
-                'vizio',
-                'ch_up',
-                'ch_down',
-                'mute',
-                'return',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                '0',
-                'wide',
-                '—',
-            ];
-            $(document).ready((_) => {
-                var ws = new WebSocket(server);
-                var ws_online = false;
-                ws.onopen = (_) => {
-                    console.log('[ws] connected');
-                    ws_online = true;
-                    last_pass = util.cookie('password');
-                    if (last_pass != null && last_pass != '') {
-                        ws.send(
-                            util.encode_msg('auth', {
-                                password: last_pass,
-                            })
-                        );
-                    }
-                };
-                ws.onclose = (_) => {
-                    console.log('[ws] closed');
-                    ws_online = false;
-                };
-                ws.onerror = (e) => {
-                    console.error('[ws] error', e);
-                };
-                ws.onmessage = (e) => {
-                    var d = util.decode_msg(e.data);
-                    if (d != null) {
-                        console.log('[ws] msg', d.event, d.data);
-                        switch (d.event) {
-                            case 'auth':
-                                if (d.data == true && last_pass != '') {
-                                    util.cookie('password', last_pass);
-                                    $('#login').hide();
-                                    $('#main').show();
-                                }
-                                break;
-                            default:
-                                console.log(
-                                    '[ws] unknown message "' + d.event + '"'
-                                );
-                                break;
-                        }
-                    }
-                };
-                $('#password').on('input', (_) => {
-                    var val = $('#password').val().trim();
-                    if (val != '') {
-                        last_pass = val;
-                        ws.send(
-                            util.encode_msg('auth', {
-                                password: val,
-                            })
-                        );
-                    }
-                });
-                $('#logout').on('click', (_) => {
-                    util.delete_cookie('password');
-                    location.reload();
-                });
-                for (var b in buttons) {
-                    var name = buttons[b];
-                    var node = document.createElement('button');
-                    node.innerHTML = name;
-                    node.id = name;
-                    node.className =
-                        'waves-effect waves-dark btn grey lighten-2';
-                    node.addEventListener(
-                        'click',
-                        ((name) => {
-                            return (event) => {
-                                console.log(name);
-                                if (ws_online) {
-                                    ws.send(
-                                        util.encode_msg('vizio', {
-                                            name: name,
-                                        })
-                                    );
-                                }
-                            };
-                        })(name)
-                    );
-                    $('#main')[0].appendChild(node);
-                    if (b % 4 == 3)
-                        $('#main')[0].appendChild(document.createElement('br'));
-                }
-                var spacer_node = document.createElement('div');
-                spacer_node.style.width = '100%';
-                spacer_node.style.height =
-                    $('#main #footer').height() + 25 + 'px';
-                $('#main')[0].appendChild(spacer_node);
-            });
-        </script>
+        <script src="lib/block.js"></script>
+        <script src="app.js"></script>
     </head>
     <body>
-        <h1 style="color: white;">Vizio IR</h1>
-        <div id="login">
-            <input type="password" id="password" />
-        </div>
-        <div id="main">
-            <div id="footer" style="display: table;">
-                <div
+        <!-- rokutv remote -->
+        <div
+            id="loading"
+            style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: table;
+                text-align: center;
+                opacity: 1;
+                transition: opacity 0.1s ease;
+            "
+        >
+            <div
+                style="
+                    display: table-cell;
+                    vertical-align: middle;
+                    margin: 0 auto;
+                "
+            >
+                <img
+                    src="img/loading_w.svg"
+                    id="loadingimg"
                     style="
-                        display: table-cell;
-                        vertical-align: middle;
-                        margin: 0 auto;
+                        width: 55%;
+                        max-width: 130px;
+                        opacity: 0.75;
+                        transition: opacity 0.5s ease;
                     "
-                >
-                    <button
-                        id="logout"
-                        class="waves-effect waves-dark btn grey lighten-2"
-                    >
-                        logout
-                    </button>
-                </div>
+                />
             </div>
         </div>
     </body>

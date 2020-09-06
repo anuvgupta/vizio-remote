@@ -1,0 +1,433 @@
+    *
+
+// rokutv remote blockfile
+
+// define custom blocks
+!break
+    init
+        {
+            return Block('span').add('br');
+        }
+    load
+        {
+            data('val', val => {
+                for (var i = 1; i < val; i++)
+                    block.add('br');
+            });
+        }
+!text
+    init
+        {
+            return Block('span');
+        }
+    load
+        {
+            data('val', val => {
+                block.node().appendChild(document.createTextNode(val));
+            });
+            data('html', html => {
+                block.html(html);
+            });
+        }
+!image
+    init
+        {
+            return Block('div');
+        }
+    load
+        {
+            var src = data('src');
+            var height = data('height');
+            var width = data('width');
+            var alt = data('alt');
+            if (src != null) {
+                block.css('background-image', "url('" + src + "')")
+                    .css('background-repeat', 'no-repeat')
+                    .css('background-size', 'contain')
+                ;
+            }
+            if (height !== null) block.css('height', height);
+            if (width !== null) block.css('width', width);
+            if (alt !== null) block.attribute('title', alt);
+        }
+!switch
+    init
+        {
+            var block;
+            block = Block('div')
+                .key('state', false)
+                .css({
+                    width: 'auto',
+                    height: '30px',
+                    cursor: 'pointer',
+                    margin: '5px 10px',
+                    fontSize: '17px'
+                })
+                .add(Block('block', 'label')
+                    .css({
+                        width: 'auto',
+                        minWidth: '70px',
+                        float: 'left',
+                        marginRight: '10px',
+                        cursor: 'inherit',
+                        fontSize: 'inherit',
+                        display: 'none'
+                    })
+                    .__child('content')
+                        .css('text-align', 'left')
+                        .__parent()
+                    .add(Block('text', 1)
+                        .data('Label 1: ')
+                    )
+                    .on('click', (e, b, d) => {
+                        if (block.key('enabled')) {
+                            block.key('state', (!block.key('state')));
+                            block.on('modified');
+                        }
+                    })
+                )
+                .add(Block('div', 'main')
+                    .css({
+                        width: '65px',
+                        height: '100%',
+                        position: 'relative',
+                        cursor: 'inherit',
+                        display: 'inline-block'
+                    })
+                    .add(Block('div', 'bg')
+                        .css({
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '16px',
+                            backgroundColor: '#e4e4e4',
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            zIndex: '1',
+                            transition: 'background-color 0.2s ease-in-out'
+                        })
+                    )
+                    .add(Block('block', 'circle')
+                        .css({
+                            width: '30px',
+                            height: '100%',
+                            position: 'absolute',
+                            top: '0.5px',
+                            left: '1px',
+                            zIndex: '2',
+                            transition: 'left 0.2s ease-in-out'
+                        })
+                        .add(Block('div')
+                            .css({
+                                width: '75%',
+                                height: '75%',
+                                borderRadius: '100%',
+                                backgroundColor: 'white',
+                                margin: '0 auto'
+                            })
+                        )
+                    )
+                    .on('click', (e, b, d) => {
+                        if (block.key('enabled')) {
+                            block.key('state', (!block.key('state')));
+                            block.on('modified');
+                        }
+                    })
+                )
+                .on('updateUI', (e, b, d) => {
+                    if (block.key('state')) {
+                        block.child('main/circle').css({
+                            left: '34px'
+                        }).sibling('bg').css({
+                            backgroundColor: '#558fed'
+                        });
+                    } else {
+                        block.child('main/circle').css({
+                            left: '1px',
+                        }).sibling('bg').css({
+                            backgroundColor: '#e4e4e4'
+                        });
+                    }
+                })
+                .on('modified', (e, b, d) => {
+                    block.on('updateUI');
+                })
+                .key('enabled', true)
+                .on('enable', (e, b, d) => {
+                    block.key('enabled', true);
+                    block.css({
+                        opacity: '1',
+                        cursor: 'pointer'
+                    });
+                    e.stopPropagation();
+                })
+                .on('disable', (e, b, d) => {
+                    block.key('enabled', false);
+                    block.css({
+                        opacity: '0.6',
+                        cursor: 'default'
+                    });
+                    e.stopPropagation();
+                })
+            ;
+            return block;
+        }
+    load
+        {
+            data('val', (val) => {
+                var v = (val == 'on');
+                if (block.key('state') != v) {
+                    block.key('state', v);
+                    block.on('modified', { locked: true });
+                }
+            });
+            data('label', (label) => {
+                block.child('label/text').html('').data(label);
+                block.child('label').css('display', 'inline-table');
+            });
+        }
+
+// app UI content layer
+app
+    id app
+    css
+        opacity 0
+        transition opacity 0.4s
+        width 100%
+        overflow auto
+        margin 0 auto
+        box-sizing border-box
+    @query window height != 0
+        {
+            block.css('height', window.innerHeight + 'px');
+        }
+    block login
+        div content
+            css
+                height 300px
+                width 700px
+                margin 0 auto
+                position relative
+            img logo
+                src img/roku-logo.png
+                height 90px
+                width 300px
+                css
+                    margin-top 15px
+                    margin-bottom 25px
+            break br1
+                // break
+            input password
+                type password
+                id password
+                :input
+                    {
+                        var val = block.$().val().trim();
+                        if (val != '') {
+                            last_pass = val;
+                            app.ws.send(
+                                util.encode_msg('auth', {
+                                    password: val,
+                                })
+                            );
+                        }
+                    }
+    div main
+        css
+            display none
+        img logo
+            src img/roku-logo.png
+            height 75px
+            width 250px
+            css
+                margin-top 35px
+                margin-bottom 30px
+        div buttons
+            css
+                width 100%
+                max-width 700px
+                margin 0 auto
+            !roku-button
+                init
+                    {
+                        return Block('div')
+                            .css({
+                                height: '65px',
+                                width: '130px',
+                                backgroundColor: '#1c1c1c',
+                                borderRadius: '3px',
+                                cursor: 'pointer',
+                                display: 'inline-block',
+                                marginBottom: '10px',
+                                transition: 'background-color 0.15s ease'
+                            })
+                            .on('mouseover', (e, b, d) => {
+                                b.css('background-color', '#222');
+                            })
+                            .on('mouseout', (e, b, d) => {
+                                b.css('background-color', '#1c1c1c');
+                            })
+                            .add(Block('block', 1)
+                                .add(Block('img', 1))
+                                .add(Block('text', 1)
+                                    .css({
+                                        display: 'none',
+                                        textTransform: 'uppercase',
+                                        color: 'white',
+                                        fontSize: '17px'
+                                    })
+                                )
+                            )
+                            .on('click', (e, b, d) => {
+                                var name = b.mark();
+                                console.log(name);
+                                if (app.ws_online) {
+                                    app.ws.send(
+                                        util.encode_msg('roku', {
+                                            name: name,
+                                        })
+                                    );
+                                }
+                            })
+                        ;
+                    }
+                load
+                    {
+                        data('src', src => {
+                            block.child('block/img').data({
+                                src: 'img/' + src,
+                                height: '25px',
+                                width: '25px',
+                                css: {
+                                    marginTop: '3px'
+                                }
+                            });
+                        });
+                        data('val', val => {
+                            block.child('block/img').css({
+                                display: 'none'
+                            }).sibling('text').css({
+                                display: 'inline'
+                            }).html('').data(val);
+                        });
+                        if (data('src') == null && data('val') == null) {
+                            block.child('block/img').data({
+                                src: 'img/' + block.mark() + '_w.png',
+                                height: '30px',
+                                width: '30px',
+                                css: {
+                                    marginTop: '3px'
+                                }
+                            });
+                        }
+                    }
+            div spacer1
+                css
+                    height 10px
+            roku-button power
+                src power_r.png
+                css
+                    margin 0 auto 6px
+            div row1
+                css
+                    margin 10px auto 5px
+                roku-button back
+                    css
+                        margin-right 5px
+                div subspacer
+                    css
+                        width 140px
+                        display inline-block
+                roku-button home
+                    css
+                        margin-left 5px
+            div row2
+                css
+                    margin 0 auto
+                roku-button up
+                    css
+                        margin 0 auto
+                div subrow
+                    css
+                        margin 5px auto -5px
+                    roku-button left
+                        css
+                            margin-right 10px
+                    roku-button ok
+                        val ok
+                    roku-button right
+                        css
+                            margin-left 10px
+                roku-button down
+                    css
+                        margin 0 auto
+            div row3
+                css
+                    margin 20px auto 10px
+                roku-button return
+                    css
+                        margin-right 10px
+                roku-button sleep
+                    // sleep
+                roku-button options
+                    css
+                        margin-left 10px
+            div row4
+                css
+                    margin -10px auto 0
+                roku-button rewind
+                    css
+                        margin-right 10px
+                roku-button play
+                    // play
+                roku-button forward
+                    css
+                        margin-left 10px
+            div row5
+                css
+                    margin 0 auto
+                roku-button vol_down
+                    css
+                        margin-right 10px
+                roku-button vol_mute
+                    // vol_mute
+                roku-button vol_up
+                    css
+                        margin-left 10px
+        block overlay
+            css
+                position absolute
+                bottom 0
+                height 100%
+                width 100%
+                left 0
+                right 0
+                background-color rgba(20, 20, 20, 0.75)
+                z-index 100
+                display none
+            div content
+                text text
+                    val offline
+                    css
+                        text-transform uppercase
+                        font-size 50px
+                        color white
+        block footer
+            css
+                position fixed
+                bottom 0
+                height 100px
+                width 100%
+                left 0
+                right 0
+                background-color #0c0c0c
+                z-index 101
+            button logout
+                html logout
+                class waves-effect waves-dark btn grey lighten-2
+                :click
+                    {
+                        util.delete_cookie('password');
+                        location.reload();
+                    }
+

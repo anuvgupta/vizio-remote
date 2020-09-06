@@ -1,8 +1,8 @@
 {
-  "name": "vizio_ir_web",
+  "name": "rokutv-remote",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "roku.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "random-number": "0.0.9",
-    "ws": "^7.1.2"
+    "ws": "^7.3.1"
   }
 }
