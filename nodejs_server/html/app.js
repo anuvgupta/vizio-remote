@@ -1,4 +1,4 @@
-// var server = 'ws://192.168.0.101:3007';
+var server = 'ws://192.168.0.101:3007';
 server =
     (location.protocol === 'https:' ? 'wss://' : 'ws://') +
     document.domain +
@@ -47,10 +47,39 @@ var last_pass = '';
 var app = {
     block: Block('div', 'app'),
     ws: null,
-    ws_online: false
+    ws_online: false,
+    ws_monitor: null
 };
 $(document).ready((_) => {
-    var init_ws = _ => {
+    var init_ws;
+    var ws_reconnect_count = 0;
+    var ws_reconnect_interval = 2000;
+    var ws_reconnect; ws_reconnect = _ => {
+        if (ws_reconnect_count >= 5)
+            location.reload();
+        else if (!app.ws_online) {
+            console.log('[ws] reconnecting...');
+            init_ws();
+            setTimeout(_ => {
+                if (!app.ws_online) {
+                    ws_reconnect_count++;
+                    app.ws_monitor = setTimeout(ws_reconnect, ws_reconnect_interval);
+                } else app.ws_monitor = setTimeout(check_online, check_online_interval);
+            }, 500);
+        } else app.ws_monitor = setTimeout(check_online, check_online_interval);
+    };
+    var check_online_interval = 100;
+    var check_online; check_online = _ => {
+        if (!app.ws_online) {
+            app.block.child('loading').css('display', 'block');
+            ws_reconnect_count = 0;
+            app.ws_monitor = setTimeout(ws_reconnect, ws_reconnect_interval);
+        } else {
+            app.block.child('loading').css('display', 'none');
+            app.ws_monitor = setTimeout(check_online, check_online_interval);
+        }
+    };
+    init_ws = _ => {
         var ws = new WebSocket(server);
         app.ws_online = false;
         ws.onopen = (_) => {
@@ -86,9 +115,9 @@ $(document).ready((_) => {
                         break;
                     case 'arduino_status':
                         if (d.data == "offline") {
-                            app.block.child('main/overlay').css('display', 'table');
+                            app.block.child('main/overlay1').css('display', 'table');
                         } else {
-                            app.block.child('main/overlay').css('display', 'none');
+                            app.block.child('main/overlay1').css('display', 'none');
                         }
                         break;
                     default:
@@ -100,23 +129,15 @@ $(document).ready((_) => {
             }
         };
         app.ws = ws;
-
-        var check_online_interval = 3000;
-        var check_online; check_online = _ => {
-            if (!app.ws_online) {
-                alert('socket disconnected - please reload');
-                location.reload();
-                setTimeout(check_online, check_online_interval);
-            } else setTimeout(check_online, check_online_interval);;
-        }
-        setTimeout(check_online, check_online_interval);
+        if (app.ws_monitor == null)
+            app.ws_monitor = setTimeout(check_online, 5000);
     };
     setTimeout(_ => {
         app.block.load(
             (_) => {
                 app.block.fill(document.body);
                 Block.queries();
-                setTimeout((_) => {
+                setTimeout(_ => {
                     app.block.css('opacity', '1');
                 }, 100);
                 setTimeout((_) => {
@@ -125,7 +146,7 @@ $(document).ready((_) => {
                         Block.queries();
                     }, 200);
                 }, 50);
-                init_ws()
+                init_ws();
             },
             'app',
             'jQuery'
